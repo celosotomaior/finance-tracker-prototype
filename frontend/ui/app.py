@@ -22,9 +22,14 @@ st.set_page_config(
 
 # ==================== Configuração da API ====================
 
-# URL base da API (pode ser configurada na sidebar)
+# URL base da API (prioriza secrets no Streamlit Cloud, depois localhost)
 if "api_url" not in st.session_state:
-    st.session_state.api_url = "http://localhost:8000/api"
+    # Tenta ler das secrets do Streamlit Cloud (produção)
+    try:
+        st.session_state.api_url = st.secrets.get("API_URL", "http://localhost:8000/api")
+    except (AttributeError, FileNotFoundError):
+        # Fallback para localhost (desenvolvimento local)
+        st.session_state.api_url = "http://localhost:8000/api"
 
 
 def get_api_url() -> str:

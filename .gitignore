@@ -47,8 +47,9 @@ finance_tracker.db
 # Logs
 *.log
 
-# Streamlit
-.streamlit/
+# Streamlit (allow config.toml but ignore secrets)
+.streamlit/secrets.toml
+.streamlit/credentials.toml
 
 # Jupyter
 .ipynb_checkpoints/
